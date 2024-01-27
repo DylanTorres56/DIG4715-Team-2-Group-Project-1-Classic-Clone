@@ -18,7 +18,7 @@ public class NodeController : MonoBehaviour
     public bool isWarpRightNode = false;    
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //Detects nodes to move to on left side
         RaycastHit2D[] hitsLeft;
@@ -27,7 +27,7 @@ public class NodeController : MonoBehaviour
         for (int i = 0; i < hitsLeft.Length; i++)
         {
             float distance = Mathf.Abs(hitsLeft[i].point.x - transform.position.x);
-            if (distance < 0.4f)
+            if (distance < 0.8f)
             {
                 canMoveLeft = true;
                 nodeLeft = hitsLeft[i].collider.gameObject;
@@ -41,7 +41,7 @@ public class NodeController : MonoBehaviour
         for (int i = 0; i < hitsRight.Length; i++)
         {
             float distance = Mathf.Abs(hitsRight[i].point.x - transform.position.x);
-            if (distance < 0.4f)
+            if (distance < 0.8f)
             {
                 canMoveRight = true;
                 nodeRight = hitsRight[i].collider.gameObject;
@@ -55,7 +55,7 @@ public class NodeController : MonoBehaviour
         for (int i = 0; i < hitsUp.Length; i++)
         {
             float distance = Mathf.Abs(hitsUp[i].point.y - transform.position.y);
-            if (distance < 0.4f)
+            if (distance < 0.8f)
             {
                 canMoveUp = true;
                 nodeUp = hitsUp[i].collider.gameObject;
@@ -69,7 +69,7 @@ public class NodeController : MonoBehaviour
         for (int i = 0; i < hitsDown.Length; i++) 
         {
             float distance = Mathf.Abs(hitsDown[i].point.y - transform.position.y);
-            if (distance < 0.4f) 
+            if (distance < 0.8f) 
             {
                 canMoveDown = true;
                 nodeDown = hitsDown[i].collider.gameObject;

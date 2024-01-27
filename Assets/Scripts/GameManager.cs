@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject leftNode;
-    public GameObject rightNode;
+    public GameObject leftWarpNode;
+    public GameObject rightWarpNode;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         
     }

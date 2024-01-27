@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
+
+    public GameManager gameManager;
+
     public GameObject currentNode;
-    public float speed = 4f;
+    public float speed = 8f;
 
     public string direction = "";
     public string lastMovingDirection = "";
 
+    public bool canWarp = true;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        Debug.Log("USE WASD TO MOVE!");
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -36,27 +40,55 @@ public class MovementController : MonoBehaviour
         }
 
         //Figures out if our position is the same as the current node
-        if (transform.position.x == currentNode.transform.position.x && transform.position.y == currentNode.transform.position.y || reverseDirection) 
+        if (transform.position.x == currentNode.transform.position.x && transform.position.y == currentNode.transform.position.y || reverseDirection)
         {
-            //Next node determined from NodeController using current direction
-            GameObject newNode = currentNodeController.GetNodeFromDirection(direction);
-
-            //If we can move in the desired direction…
-            if (newNode != null)
+            //Hitting leftWarpNode = Warp to right
+            if (currentNodeController.isWarpLeftNode && canWarp)
             {
-                currentNode = newNode;
-                lastMovingDirection = direction;
+                currentNode = gameManager.rightWarpNode;
+                direction = "left";
+                lastMovingDirection = "left";
+                transform.position = currentNode.transform.position;
+                canWarp = false;
             }
-            //If we can't move in the desired direction, check to keep going in the lastMovingDirection 
-            else 
+            //Hitting rightWarpNode = Warp to left
+            else if (currentNodeController.isWarpRightNode && canWarp)
             {
-                direction = lastMovingDirection;
-                newNode = currentNodeController.GetNodeFromDirection(direction);
-                if (newNode != null) 
+                currentNode = gameManager.leftWarpNode;
+                direction = "right";
+                lastMovingDirection = "right";
+                transform.position = currentNode.transform.position;
+                canWarp = false;
+            }
+            //Otherwise, find next node
+            else
+            {
+                //Next node determined from NodeController using current direction
+                GameObject newNode = currentNodeController.GetNodeFromDirection(direction);
+
+                //If we can move in the desired direction…
+                if (newNode != null)
                 {
                     currentNode = newNode;
+                    lastMovingDirection = direction;
+                }
+                //If we can't move in the desired direction, check to keep going in the lastMovingDirection 
+                else
+                {
+                    direction = lastMovingDirection;
+                    newNode = currentNodeController.GetNodeFromDirection(direction);
+                    if (newNode != null)
+                    {
+                        currentNode = newNode;
+                    }
                 }
             }
+
+        }
+        //NOT at node's center
+        else 
+        {
+            canWarp = true;
         }
     }
 
