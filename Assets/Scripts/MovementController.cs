@@ -14,6 +14,7 @@ public class MovementController : MonoBehaviour
     public string lastMovingDirection = "";
 
     public bool canWarp = true;
+    public bool isGhost = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -40,9 +41,14 @@ public class MovementController : MonoBehaviour
             reverseDirection = true;
         }
 
-        //Figures out if our position is the same as the current node
+        //Figures out if our position is the same as the current node's center
         if (transform.position.x == currentNode.transform.position.x && transform.position.y == currentNode.transform.position.y || reverseDirection)
         {
+            if (isGhost) 
+            {
+                GetComponent<EnemyController>().ReachedCenterOfNode(currentNodeController);
+            }
+
             //Hitting leftWarpNode = Warp to right
             if (currentNodeController.isWarpLeftNode && canWarp)
             {
@@ -96,5 +102,6 @@ public class MovementController : MonoBehaviour
     public void SetDirection(string newDirection) 
     {
         direction = newDirection;
-    }
+    }    
+
 }
