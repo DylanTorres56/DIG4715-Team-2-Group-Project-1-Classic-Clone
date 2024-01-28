@@ -6,6 +6,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject pacMan;
+
     public GameObject leftWarpNode;
     public GameObject rightWarpNode;
 
