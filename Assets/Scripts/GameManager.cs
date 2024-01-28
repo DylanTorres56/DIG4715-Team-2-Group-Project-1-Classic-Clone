@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     public void AddToScore(int amount) 
     {
         score += amount;
-        scoreText.text = "Score: " + score;
+        scoreText.text = "High Score: \n     " + score;
     }
 
     public void CollectedPellet(NodeController nodeController) 
