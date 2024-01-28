@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     }
 
     public GhostNodeStatesEnum ghostNodeState;
+    public GhostNodeStatesEnum respawnState;
 
     public enum GhostType
     {
@@ -40,6 +41,9 @@ public class EnemyController : MonoBehaviour
 
     public GameManager gameManager;
 
+
+    public bool testRespawn = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,22 +52,30 @@ public class EnemyController : MonoBehaviour
         if (ghostType == GhostType.blinky) 
         {
             ghostNodeState = GhostNodeStatesEnum.startNode;
+            respawnState = GhostNodeStatesEnum.centerNode;
             startingNode = ghostNodeStart;
+            readyToLeaveHome = true;
         }
         else if (ghostType == GhostType.pinky)
         {
             ghostNodeState = GhostNodeStatesEnum.centerNode;
+            respawnState = GhostNodeStatesEnum.centerNode;
             startingNode = ghostNodeCenter;
+            readyToLeaveHome = true;
         }
         else if (ghostType == GhostType.inky) 
         {
             ghostNodeState = GhostNodeStatesEnum.leftNode;
+            respawnState = GhostNodeStatesEnum.leftNode;
             startingNode = ghostNodeLeft;
+            readyToLeaveHome = true;
         }
         else if (ghostType == GhostType.clyde) 
         {
             ghostNodeState = GhostNodeStatesEnum.rightNode;
+            respawnState = GhostNodeStatesEnum.rightNode;
             startingNode = ghostNodeRight;
+            readyToLeaveHome = true;
         }
         movementController.currentNode = startingNode;
         transform.position = startingNode.transform.position;
@@ -72,7 +84,12 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (testRespawn == true) 
+        {
+            readyToLeaveHome = false;
+            ghostNodeState = GhostNodeStatesEnum.respawning;
+            testRespawn = false;
+        }
     }
 
     public void ReachedCenterOfNode(NodeController nodeController)
@@ -87,7 +104,47 @@ public class EnemyController : MonoBehaviour
         }
         else if (ghostNodeState == GhostNodeStatesEnum.respawning)
         {
-            //Determine quickest direction to home
+            string direction = "";
+
+            //Ghost has reached start node- move to center node (TO DO: THIS DOESN'T WORK FOR SOME REASON, ASK CALL)
+            if (transform.position.x == ghostNodeStart.transform.position.x && transform.position.y == ghostNodeStart.transform.position.y)
+            {
+                direction = "down";
+                Debug.Log("MOVE DOWN");
+            }
+            //Ghost has reached center node- either finish respawn or move to left/right side
+            else if (transform.position.x == ghostNodeCenter.transform.position.x && transform.position.y == ghostNodeCenter.transform.position.y)
+            {
+                if (respawnState == GhostNodeStatesEnum.centerNode)
+                {
+                    ghostNodeState = respawnState;
+                }
+                else if (respawnState == GhostNodeStatesEnum.leftNode)
+                {
+                    direction = "left";
+                }
+                else if (respawnState == GhostNodeStatesEnum.rightNode)
+                {
+                    direction = "right";
+                }
+            }
+
+            //If a ghost's respawn state is either the left or right node AND node has been found, leave home again
+            else if (
+                (transform.position.x == ghostNodeLeft.transform.position.x && transform.position.y == ghostNodeLeft.transform.position.y)
+                || (transform.position.x == ghostNodeRight.transform.position.x && transform.position.y == ghostNodeRight.transform.position.y)
+                )
+            {
+                ghostNodeState = respawnState;
+            }
+            //Ghosts are still in game board; locate start board
+            else 
+            {
+                //Determine a ghost's quickest direction home
+                direction = GetClosestDirection(ghostNodeStart.transform.position);
+            }
+                        
+            movementController.SetDirection(direction);
         }
         else 
         {
@@ -124,7 +181,7 @@ public class EnemyController : MonoBehaviour
 
     void DetermineBlinkyDirection() 
     {
-        string direction = GetClosestToDirection(gameManager.pacMan.transform.position);
+        string direction = GetClosestDirection(gameManager.pacMan.transform.position);
         movementController.SetDirection(direction);
     }
     void DeterminePinkyDirection()
@@ -140,7 +197,7 @@ public class EnemyController : MonoBehaviour
     
     }
 
-    string GetClosestToDirection(Vector2 target) 
+    string GetClosestDirection(Vector2 target) 
     {
         float shortestDistance = 0;
         string lastMovingDirection = movementController.lastMovingDirection;

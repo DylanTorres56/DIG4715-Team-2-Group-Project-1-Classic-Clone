@@ -22,6 +22,8 @@ public class NodeController : MonoBehaviour
     //If node still has a pellet
     public bool hasPellet = false;
 
+    public bool isGhostStartingNode = false;
+
     public SpriteRenderer pelletSprite;
 
     public GameManager gameManager;
@@ -92,12 +94,19 @@ public class NodeController : MonoBehaviour
                 nodeDown = hitsDown[i].collider.gameObject;
             }
         }
+
+        if (isGhostStartingNode) 
+        {
+            canMoveDown = true;
+            nodeDown = gameManager.ghostNodeCenter;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //TO DO: SOMETHING IS JACKED UP WITH HOW BLINKY DOESN'T FIND HOME- ASK FOR HELP DEBUGGING IN CALL
     }
 
     public GameObject GetNodeFromDirection(string direction) 
