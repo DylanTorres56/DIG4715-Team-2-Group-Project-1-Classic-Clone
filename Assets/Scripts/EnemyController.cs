@@ -106,6 +106,9 @@ public class EnemyController : MonoBehaviour
         else if (ghostNodeState == GhostNodeStatesEnum.respawning)
         {
             Debug.Log("STATE IS NOW: RESPAWNING");
+            Debug.Log("Blinky's X Position: " + transform.position.x + " | Blinky's Y Position: " + transform.position.y);
+            Debug.Log("Start Node's X Position: " + ghostNodeStart.transform.position.x + " | Start Node's Y Position: " + ghostNodeStart.transform.position.y);
+
             string direction = "";
 
             //Ghost has reached start node- move to center node (TO DO: THIS DOESN'T WORK FOR SOME REASON, ASK CALL)
