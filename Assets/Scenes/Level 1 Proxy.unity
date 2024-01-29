@@ -33167,7 +33167,7 @@ GameObject:
   - component: {fileID: 1431967063}
   m_Layer: 0
   m_Name: Start
-  m_TagString: Node
+  m_TagString: GhostNode
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
