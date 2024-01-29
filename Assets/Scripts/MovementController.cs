@@ -45,7 +45,7 @@ public class MovementController : MonoBehaviour
         {
             if (isGhost) 
             {
-                GetComponent<EnemyController>().ReachedCenterOfNode(currentNodeController);
+                GetComponent<EnemyController>().ReachedCenterOfNode(currentNodeController);                
             }
 
             //Hitting leftWarpNode = Warp to right
@@ -56,6 +56,7 @@ public class MovementController : MonoBehaviour
                 lastMovingDirection = "left";
                 transform.position = currentNode.transform.position;
                 canWarp = false;
+                Debug.Log("CURRENT NODE: " + currentNode);
             }
             //Hitting rightWarpNode = Warp to left
             else if (currentNodeController.isWarpRightNode && canWarp)
@@ -65,6 +66,7 @@ public class MovementController : MonoBehaviour
                 lastMovingDirection = "right";
                 transform.position = currentNode.transform.position;
                 canWarp = false;
+                Debug.Log("CURRENT NODE: " + currentNode);
             }
             //Otherwise, find next node
             else
@@ -85,6 +87,7 @@ public class MovementController : MonoBehaviour
                 {
                     currentNode = newNode;
                     lastMovingDirection = direction;
+                    Debug.Log("CURRENT NODE: " + currentNode);
                 }
                 //If we can't move in the desired direction, check to keep going in the lastMovingDirection 
                 else
@@ -94,6 +97,7 @@ public class MovementController : MonoBehaviour
                     if (newNode != null)
                     {
                         currentNode = newNode;
+                        Debug.Log("CURRENT NODE: " + currentNode);
                     }
                 }
             }
@@ -103,7 +107,7 @@ public class MovementController : MonoBehaviour
         else 
         {
             canWarp = true;
-        }
+        }        
     }
 
     public void SetDirection(string newDirection) 
