@@ -84,6 +84,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (testRespawn == true) 
         {
             readyToLeaveHome = false;
@@ -104,6 +105,7 @@ public class EnemyController : MonoBehaviour
         }
         else if (ghostNodeState == GhostNodeStatesEnum.respawning)
         {
+
             string direction = "";
 
             //Ghost has reached start node- move to center node (TO DO: THIS DOESN'T WORK FOR SOME REASON, ASK CALL)
