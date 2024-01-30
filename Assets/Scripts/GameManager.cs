@@ -6,67 +6,112 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject pacMan;
+    //TO DO: GameManager is about ready-- next is reconfiguring Pac-Man GameObject (TIMESTAMP: https://youtu.be/TKt_VlMn_aA?t=2588)
 
-    public GameObject leftWarpNode;
-    public GameObject rightWarpNode;
+    public Ghost[] ghosts;
+    public PacMan pacMan;
 
-    public AudioSource siren;
-    public AudioSource munch1;
-    public AudioSource munch2;
-    public int currentMunch;
+    public Transform pellets;
 
-    public int score;
+    public int score { get; private set; }
+    public int lives { get; private set; }
+
     public TextMeshProUGUI scoreText;
 
-    public GameObject ghostNodeStart;
-    public GameObject ghostNodeCenter;
-    public GameObject ghostNodeLeft;
-    public GameObject ghostNodeRight;
-
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        ghostNodeStart.GetComponent<NodeController>().isGhostStartingNode = true;
-
-        score = 0;
-        currentMunch = 0;
-        siren.Play();
+        NewGame();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update() 
     {
+        if (lives <= 0 && Input.anyKeyDown) 
+        {
+            NewGame();
+        }
+    }
+
+    private void NewGame() 
+    {
+        SetScore(0);
+        SetLives(3);
+        NewRound();
+    }
+
+    private void NewRound() 
+    {
+        //Pellets are turned back on when a new round is called
+        foreach (Transform pellet in this.pellets) 
+        {
+            pellet.gameObject.SetActive(true);
+        }
+
+        ResetState();
         
     }
 
-    public void AddToScore(int amount) 
+    private void ResetState() 
     {
-        score += amount;
-        scoreText.text = "High Score: \n     " + score;
-    }
-
-    public void CollectedPellet(NodeController nodeController) 
-    {
-        if (currentMunch == 0) 
+        //Each ghost is set as true when a new round is called
+        for (int i = 0; i < this.ghosts.Length; i++)
         {
-            munch1.Play();
-            currentMunch = 1;
-        }
-        else if (currentMunch == 1) 
-        {
-            munch2.Play();
-            currentMunch = 0;
+            this.ghosts[i].gameObject.SetActive(true);
         }
 
-        AddToScore(10);
-
-        //Add to score
-
-        //Check for remaining pellets
-
-        //Check how many pellets were eaten
-
-        //Check if a pellet is a Power Pellet
+        //Pac-Man is set as true when a new round is called
+        this.pacMan.gameObject.SetActive(true);
     }
+
+    private void GameOver() 
+    {
+        //Each ghost is set as false when the game is over
+        for (int i = 0; i < this.ghosts.Length; i++)
+        {
+            this.ghosts[i].gameObject.SetActive(false);
+        }
+
+        //Pac-Man is set as false when the game is over
+        this.pacMan.gameObject.SetActive(false);
+    }
+
+    private void SetScore(int currentScore)
+    {
+        score = currentScore;
+    }
+
+    private void SetLives(int currentLives) 
+    {
+        lives = currentLives;
+    }
+
+    public void GhostEaten(Ghost eatenGhost) 
+    {
+        SetScore(score + eatenGhost.points);
+    }
+
+    public void PacManEaten() 
+    {
+        this.pacMan.gameObject.SetActive(false);
+        SetLives(lives - 1);
+
+        if (lives > 0)
+        {
+            Invoke(nameof(ResetState), 3.0f);
+        }
+        else 
+        {
+            GameOver();
+        }
+    }
+
+    //NOTE: This is a potential holdover from the previous version of the GameManager, so I am commenting it out for the time being.
+
+    //private void AddToScore(int amount) 
+    //{
+    //score += amount;
+    //scoreText.text = "High Score: \n     " + score;
+    //}
+
 }
