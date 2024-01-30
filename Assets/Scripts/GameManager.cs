@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public Transform pellets;
 
+    public int ghostMultiplier { get; private set;} = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
 
@@ -54,14 +55,15 @@ public class GameManager : MonoBehaviour
 
     private void ResetState() 
     {
+        ResetGhostMultiplier();
         //Each ghost is set as true when a new round is called
         for (int i = 0; i < this.ghosts.Length; i++)
         {
-            this.ghosts[i].gameObject.SetActive(true);
+            this.ghosts[i].ResetState();
         }
 
         //Pac-Man is set as true when a new round is called
-        this.pacMan.gameObject.SetActive(true);
+        pacMan.ResetState();
     }
 
     private void GameOver() 
@@ -88,7 +90,8 @@ public class GameManager : MonoBehaviour
 
     public void GhostEaten(Ghost eatenGhost) 
     {
-        SetScore(score + eatenGhost.points);
+        SetScore(score + eatenGhost.points * this.ghostMultiplier);
+        this.ghostMultiplier++;
     }
 
     public void PacManEaten() 
@@ -106,6 +109,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PelletEaten(Pellet pellet)
+    {
+        pellet.gameObject.SetActive(false);
+        SetScore(this.score + pellet.points);
+
+        if (!HasRemainingPellets())
+        {
+            this.pacMan.gameObject.SetActive(false);
+            Invoke(nameof(NewRound), 3.0f);
+        }
+    }
+
+    public void PowerPelletEaten(PowerPellet pellet)
+    {
+        //TODO: Change ghost state.
+        PelletEaten(pellet);
+        CancelInvoke();
+        Invoke(nameof(ResetGhostMultiplier), pellet.duration);
+    }
+
+    private bool HasRemainingPellets()
+    {
+        foreach (Transform pellet in this.pellets)
+        {
+            if (pellet.gameObject.activeSelf)
+                return true;
+        }
+        return false;
+    }
+
+    private void ResetGhostMultiplier()
+    {
+        this.ghostMultiplier = 1;
+    }
     //NOTE: This is a potential holdover from the previous version of the GameManager, so I am commenting it out for the time being.
 
     //private void AddToScore(int amount) 
