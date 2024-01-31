@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour
     public int lives { get; private set; }
 
     public TextMeshProUGUI scoreText;
+    public Image gameOver;
+    public Image gameWon;
+    public Image life1;
+    public Image life2;
+    public Canvas endScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
     private void NewRound() 
     {
         //Pellets are turned back on when a new round is called
+        gameOver.enabled = false;
         foreach (Transform pellet in this.pellets) 
         {
             pellet.gameObject.SetActive(true);
@@ -69,6 +75,8 @@ public class GameManager : MonoBehaviour
     private void GameOver() 
     {
         //Each ghost is set as false when the game is over
+        endScreen.enabled = true;
+        gameOver.enabled = true;
         for (int i = 0; i < this.ghosts.Length; i++)
         {
             this.ghosts[i].gameObject.SetActive(false);
@@ -81,6 +89,7 @@ public class GameManager : MonoBehaviour
     private void SetScore(int currentScore)
     {
         score = currentScore;
+        scoreText.text = score.ToString();
     }
 
     private void SetLives(int currentLives) 
@@ -98,9 +107,17 @@ public class GameManager : MonoBehaviour
     {
         this.pacMan.gameObject.SetActive(false);
         SetLives(lives - 1);
-
+        
         if (lives > 0)
         {
+            if (lives == 2)
+            {
+            life2.enabled = false;
+            }
+            if (lives == 1)
+            {
+                life1.enabled = false;
+            }
             Invoke(nameof(ResetState), 3.0f);
         }
         else 
@@ -117,7 +134,13 @@ public class GameManager : MonoBehaviour
         if (!HasRemainingPellets())
         {
             this.pacMan.gameObject.SetActive(false);
-            Invoke(nameof(NewRound), 3.0f);
+            for (int i = 0; i < ghosts.Length; i++) {
+                ghosts[i].gameObject.SetActive(false);
+            }
+            endScreen.enabled = true;
+            gameWon.enabled = true;
+            //Disabling new round for now, just putting up a win screen - Chelle
+            //Invoke(nameof(NewRound), 3.0f);
         }
     }
 
