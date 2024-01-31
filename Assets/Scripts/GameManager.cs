@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public Image gameWon;
     public Image life1;
     public Image life2;
-    public Canvas endScreen;
+    public Button menuButton;
 
     // Start is called before the first frame update
     void Start()
@@ -75,8 +75,6 @@ public class GameManager : MonoBehaviour
     private void GameOver() 
     {
         //Each ghost is set as false when the game is over
-        endScreen.enabled = true;
-        gameOver.enabled = true;
         for (int i = 0; i < this.ghosts.Length; i++)
         {
             this.ghosts[i].gameObject.SetActive(false);
@@ -84,6 +82,7 @@ public class GameManager : MonoBehaviour
 
         //Pac-Man is set as false when the game is over
         this.pacMan.gameObject.SetActive(false);
+        endGame(1);
     }
 
     private void SetScore(int currentScore)
@@ -137,8 +136,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < ghosts.Length; i++) {
                 ghosts[i].gameObject.SetActive(false);
             }
-            endScreen.enabled = true;
-            gameWon.enabled = true;
+            endGame(2);
             //Disabling new round for now, just putting up a win screen - Chelle
             //Invoke(nameof(NewRound), 3.0f);
         }
@@ -160,6 +158,20 @@ public class GameManager : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    private void endGame(int state)
+    {
+        menuButton.gameObject.SetActive(true);
+        Time. timeScale = 0;
+        if (state <= 1)
+        {
+            gameOver.enabled = true;
+        }
+        else if(state > 1)
+        {
+            gameWon.enabled = true;
+        }
     }
 
     private void ResetGhostMultiplier()
