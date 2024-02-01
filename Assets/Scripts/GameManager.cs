@@ -144,7 +144,10 @@ public class GameManager : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
-        //TODO: Change ghost state.
+        for (int i = 0; i < this.ghosts.Length; i++) 
+        {
+            this.ghosts[i].frightened.Enable(pellet.duration);
+        }
         PelletEaten(pellet);
         CancelInvoke();
         Invoke(nameof(ResetGhostMultiplier), pellet.duration);
@@ -178,12 +181,5 @@ public class GameManager : MonoBehaviour
     {
         this.ghostMultiplier = 1;
     }
-    //NOTE: This is a potential holdover from the previous version of the GameManager, so I am commenting it out for the time being.
-
-    //private void AddToScore(int amount) 
-    //{
-    //score += amount;
-    //scoreText.text = "High Score: \n     " + score;
-    //}
-
+    
 }

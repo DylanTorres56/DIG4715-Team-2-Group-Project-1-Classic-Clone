@@ -38,9 +38,15 @@ public class Ghost : MonoBehaviour
         this.chase.Disable();
         this.scatter.Enable();
         if (this.home != this.initialBehavior)
+        {
             this.home.Disable();
-        if(this.initialBehavior != null)
+        }
+
+        if (this.initialBehavior != null) 
+        {
             this.initialBehavior.Enable();
+        }
+            
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
