@@ -52,7 +52,7 @@ public class GhostFrightened : GhostBehavior
         {
             this.blue.enabled = false;
             this.white.enabled = true;
-            this.white.GetComponent<AnimatedSprite>().Restart();
+            //this.white.GetComponent<AnimatedSprite>().Restart();
         }
 
     }

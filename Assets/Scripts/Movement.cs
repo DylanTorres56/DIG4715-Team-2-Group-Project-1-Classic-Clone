@@ -17,6 +17,9 @@ public class Movement : MonoBehaviour
     public Vector2 nextDirection {get; private set;}
     public Vector3 startingPosition {get; private set;}
 
+    public string entityName;
+    Animator animator;
+
     private void Awake()
     {
         this.rigidbody = GetComponent<Rigidbody2D>();
@@ -42,7 +45,22 @@ public class Movement : MonoBehaviour
         if (this.nextDirection != Vector2.zero) 
         {
             SetDirection(this.nextDirection);
-        }            
+            if(string.Compare(entityName, "Pac-Maid") != 0)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                if (direction.x > 0)
+                {
+                    gameObject.GetComponent<Animator>().Play("right");
+                    Debug.Log("Moving Right");
+                }
+                else if (direction.x < 0)
+                {
+                    gameObject.GetComponent<Animator>().Play("left");
+                   Debug.Log("Moving Left");
+                }
+            }   
+        } 
     }
 
     private void FixedUpdate()
