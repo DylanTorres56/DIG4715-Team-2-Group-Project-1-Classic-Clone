@@ -7,6 +7,7 @@ public class GhostFrightened : GhostBehavior
     public SpriteRenderer body;
     public SpriteRenderer blue;
     public SpriteRenderer white;
+    Animator animator;
 
     public bool eaten { get; private set; }
 
