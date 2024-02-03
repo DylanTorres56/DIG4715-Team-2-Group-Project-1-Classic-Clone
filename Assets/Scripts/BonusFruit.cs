@@ -23,6 +23,12 @@ public class BonusFruit : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Pac-Man"))
         {
+            //Checks to see if a bonus fruit was eaten before, and returns a new score value of 300;
+            if (FindObjectOfType<GameManager>().numOfBonusFruitEaten == 1) 
+            {
+                fruitPoints = 300;
+            }
+
             Eat();
         }
     }

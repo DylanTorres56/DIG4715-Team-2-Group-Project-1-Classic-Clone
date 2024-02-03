@@ -13,12 +13,14 @@ public class GameManager : MonoBehaviour
     public PacMan pacMan;
 
     public Transform pellets;
-    public Transform bonusFruit;
+    public Transform bonusFruit1;
+    public Transform bonusFruit2;
 
     public int ghostMultiplier { get; private set;} = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
     public int numOfPelletsEaten { get; private set; }
+    public int numOfBonusFruitEaten { get; private set; } = 0;
 
     public TextMeshProUGUI scoreText;
     public Image gameOver;
@@ -31,17 +33,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         NewGame();
-        bonusFruit.gameObject.SetActive(false);
+        bonusFruit1.gameObject.SetActive(false);
+        bonusFruit2.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     private void Update() 
     {
-        //Game checks for pellets eaten-- after 70, the bonus fruit appears and can be eaten
-        if (numOfPelletsEaten >= 70)        
-        {
-            bonusFruit.gameObject.SetActive(true);
-        }
+        
     }
 
     private void NewGame() 
@@ -132,6 +131,17 @@ public class GameManager : MonoBehaviour
     public void PelletEaten(Pellet pellet)
     {
         numOfPelletsEaten++;
+
+        //Game checks for pellets eaten-- after 70, the 1st bonus fruit appears and can be eaten, then for the 2nd at 170 and after the 1st is already gone
+        if (numOfPelletsEaten >= 70 && numOfBonusFruitEaten == 0)
+        {
+            bonusFruit1.gameObject.SetActive(true);
+        }
+        if (numOfPelletsEaten >= 170 && numOfBonusFruitEaten == 1)
+        {
+            bonusFruit2.gameObject.SetActive(true);
+        }
+
         pellet.gameObject.SetActive(false);
         SetScore(this.score + pellet.points);
 
@@ -159,6 +169,7 @@ public class GameManager : MonoBehaviour
 
     public void BonusFruitEaten(BonusFruit bonusFruit) 
     {
+        numOfBonusFruitEaten++;
         bonusFruit.gameObject.SetActive(false);
         SetScore(this.score + bonusFruit.fruitPoints);
     }
