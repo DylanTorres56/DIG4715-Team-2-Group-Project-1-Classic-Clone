@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
     public Image life1;
     public Image life2;
     public Button menuButton;
-    public TextMeshProUGUI endScore;
-    public TextMeshProUGUI endScore2;
 
     // Start is called before the first frame update
     void Start()
@@ -196,8 +194,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            endScore.enabled = true;
-            endScore2.enabled = true;
             gameWon.enabled = true;
         }
     }

@@ -8868,8 +8868,6 @@ MonoBehaviour:
   life1: {fileID: 1521085444}
   life2: {fileID: 1326373325}
   menuButton: {fileID: 1566251865}
-  endScore: {fileID: 1581637974}
-  endScore2: {fileID: 224129128}
 --- !u!4 &1251489988
 Transform:
   m_ObjectHideFlags: 0
@@ -9510,7 +9508,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dbae36c803d83d546b6f3c7ec13fdaf6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 050f3c3b618ae8c48b56a607303d0e8f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
