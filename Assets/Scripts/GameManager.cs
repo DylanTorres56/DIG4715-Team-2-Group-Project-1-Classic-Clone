@@ -42,11 +42,6 @@ public class GameManager : MonoBehaviour
         {
             bonusFruit.gameObject.SetActive(true);
         }
-
-        if (lives <= 0 && Input.anyKeyDown) 
-        {
-            NewGame();
-        }
     }
 
     private void NewGame() 
@@ -64,7 +59,6 @@ public class GameManager : MonoBehaviour
         {
             pellet.gameObject.SetActive(true);
         }
-
         ResetState();
         
     }
@@ -148,8 +142,6 @@ public class GameManager : MonoBehaviour
                 ghosts[i].gameObject.SetActive(false);
             }
             EndGame(2);
-            //Disabling new round for now, just putting up a win screen - Chelle
-            //Invoke(nameof(NewRound), 3.0f);
         }
     }
 
@@ -189,7 +181,7 @@ public class GameManager : MonoBehaviour
         {
             gameOver.enabled = true;
         }
-        else if(state > 1)
+        else
         {
             gameWon.enabled = true;
         }
