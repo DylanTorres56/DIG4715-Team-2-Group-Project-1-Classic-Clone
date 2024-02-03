@@ -17199,6 +17199,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pac-Maid
       objectReference: {fileID: 0}
+    - target: {fileID: 5941567332043432909, guid: aafa7d0636226b54eb59b84c1a532a8c, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941567332043432909, guid: aafa7d0636226b54eb59b84c1a532a8c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5941567332043432911, guid: aafa7d0636226b54eb59b84c1a532a8c, type: 3}
       propertyPath: entityName
       value: Pac-Maid
@@ -17247,6 +17255,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5941567332043432896, guid: aafa7d0636226b54eb59b84c1a532a8c, type: 3}
   m_PrefabInstance: {fileID: 2112426063}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &2112426073
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112426064}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 1.28, y: 1.28}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9}
+  m_EdgeRadius: 0
 --- !u!1 &2129672256
 GameObject:
   m_ObjectHideFlags: 0

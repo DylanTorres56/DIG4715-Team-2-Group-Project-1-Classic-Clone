@@ -48,16 +48,34 @@ public class Movement : MonoBehaviour
             if(string.Compare(entityName, "Pac-Maid") != 0)
             {
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-                if (direction.x > 0)
+                if(GetComponent<GhostFrightened>().isActiveAndEnabled)
                 {
-                    gameObject.GetComponent<Animator>().Play("right");
-                    Debug.Log("Moving Right");
+                    if (direction.x > 0)
+                    {
+                        gameObject.GetComponent<Animator>().Play("frightened_right");
+                        Debug.Log("Moving Right Frightened");
+                    }
+                    else if (direction.x < 0)
+                    {
+                        gameObject.GetComponent<Animator>().Play("frightened_left");
+                       Debug.Log("Moving Left Frightened");
+                    }
                 }
-                else if (direction.x < 0)
+                else if(GetComponent<GhostHome>().isActiveAndEnabled)
                 {
-                    gameObject.GetComponent<Animator>().Play("left");
-                   Debug.Log("Moving Left");
+                        gameObject.GetComponent<Animator>().Play("home");
+                        Debug.Log("Going Home");
+                }
+                else
+                {
+                    if (direction.x > 0)
+                    {
+                        gameObject.GetComponent<Animator>().Play("right");
+                    }
+                else if (direction.x < 0)
+                    {
+                        gameObject.GetComponent<Animator>().Play("left");
+                    }
                 }
             }   
         } 
