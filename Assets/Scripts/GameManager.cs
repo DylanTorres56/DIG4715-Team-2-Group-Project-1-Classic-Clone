@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public Image life1;
     public Image life2;
     public Button menuButton;
+    public Animator pacAC;
 
     // Start is called before the first frame update
     void Start()
@@ -107,6 +108,8 @@ public class GameManager : MonoBehaviour
 
     public void PacManEaten() 
     {
+        pacAC.SetBool("PacDied", true);
+        // delay???
         this.pacMan.gameObject.SetActive(false);
         SetLives(lives - 1);
         

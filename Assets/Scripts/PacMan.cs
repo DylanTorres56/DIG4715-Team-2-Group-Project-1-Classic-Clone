@@ -9,33 +9,39 @@ public class PacMan : MonoBehaviour
     private void Awake()
     {
         this.movement = GetComponent<Movement>();
+        animator = GetComponent<Animator>();
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            gameObject.GetComponent<Animator>().Play("up");
+            animator.SetFloat("PacMoveX", 0);
+            animator.SetFloat("PacMoveY", 1);
             this.movement.SetDirection(Vector2.up);
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            gameObject.GetComponent<Animator>().Play("left");
+            animator.SetFloat("PacMoveX", -1);
+            animator.SetFloat("PacMoveY", 0);
             this.movement.SetDirection(Vector2.left);
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            gameObject.GetComponent<Animator>().Play("down");
+            animator.SetFloat("PacMoveX", 0);
+            animator.SetFloat("PacMoveY", -1);
             this.movement.SetDirection(Vector2.down);
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            gameObject.GetComponent<Animator>().Play("right");
+            animator.SetFloat("PacMoveX", 1);
+            animator.SetFloat("PacMoveY", 0);
             this.movement.SetDirection(Vector2.right);
         }
     }
 
     public void ResetState()
     {
+        animator.SetBool("PacDied", false);
         this.gameObject.SetActive(true);
         this.movement.ResetState();
     }
