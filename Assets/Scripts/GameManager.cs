@@ -9,13 +9,16 @@ public class GameManager : MonoBehaviour
     //TO DO: GameManager is about ready-- next is reconfiguring Pac-Man GameObject (TIMESTAMP: https://youtu.be/TKt_VlMn_aA?t=2588)
 
     public Ghost[] ghosts;
+        
     public PacMan pacMan;
 
     public Transform pellets;
+    public Transform bonusFruit;
 
     public int ghostMultiplier { get; private set;} = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
+    public int numOfPelletsEaten { get; private set; }
 
     public TextMeshProUGUI scoreText;
     public Image gameOver;
@@ -28,11 +31,18 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         NewGame();
+        bonusFruit.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     private void Update() 
     {
+        //Game checks for pellets eaten-- after 70, the bonus fruit appears and can be eaten
+        if (numOfPelletsEaten >= 70)        
+        {
+            bonusFruit.gameObject.SetActive(true);
+        }
+
         if (lives <= 0 && Input.anyKeyDown) 
         {
             NewGame();
@@ -82,7 +92,7 @@ public class GameManager : MonoBehaviour
 
         //Pac-Man is set as false when the game is over
         this.pacMan.gameObject.SetActive(false);
-        endGame(1);
+        EndGame(1);
     }
 
     private void SetScore(int currentScore)
@@ -127,6 +137,7 @@ public class GameManager : MonoBehaviour
 
     public void PelletEaten(Pellet pellet)
     {
+        numOfPelletsEaten++;
         pellet.gameObject.SetActive(false);
         SetScore(this.score + pellet.points);
 
@@ -136,7 +147,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < ghosts.Length; i++) {
                 ghosts[i].gameObject.SetActive(false);
             }
-            endGame(2);
+            EndGame(2);
             //Disabling new round for now, just putting up a win screen - Chelle
             //Invoke(nameof(NewRound), 3.0f);
         }
@@ -144,6 +155,7 @@ public class GameManager : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
+        numOfPelletsEaten++;
         for (int i = 0; i < this.ghosts.Length; i++) 
         {
             this.ghosts[i].frightened.Enable(pellet.duration);
@@ -151,6 +163,12 @@ public class GameManager : MonoBehaviour
         PelletEaten(pellet);
         CancelInvoke();
         Invoke(nameof(ResetGhostMultiplier), pellet.duration);
+    }
+
+    public void BonusFruitEaten(BonusFruit bonusFruit) 
+    {
+        bonusFruit.gameObject.SetActive(false);
+        SetScore(this.score + bonusFruit.fruitPoints);
     }
 
     private bool HasRemainingPellets()
@@ -163,7 +181,7 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    private void endGame(int state)
+    private void EndGame(int state)
     {
         menuButton.gameObject.SetActive(true);
         Time. timeScale = 0;
