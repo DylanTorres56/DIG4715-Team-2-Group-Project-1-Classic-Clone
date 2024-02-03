@@ -11,10 +11,16 @@ public class MainMenuScript: MonoBehaviour
     }
     
     // Start is called before the first frame update
-    public void NewGame()
+    public void LevelOne()
     {
         Debug.Log("Loading a new scene.");
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(2);
+    }
+
+    public void LevelTwo()
+    {
+        Debug.Log("Loading a new scene.");
+        SceneManager.LoadSceneAsync(3);
     }
 
     public void QuitGame()

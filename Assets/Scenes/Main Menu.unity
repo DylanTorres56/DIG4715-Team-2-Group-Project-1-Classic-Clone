@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 46751019}
   - component: {fileID: 46751018}
   m_Layer: 5
-  m_Name: Options Text
+  m_Name: LeveTwoButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: Level 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f9b6b60e8d9f384e8557ac967cd5268, type: 2}
   m_sharedMaterial: {fileID: -4751131066243813744, guid: 0f9b6b60e8d9f384e8557ac967cd5268, type: 2}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 132379459}
   - component: {fileID: 132379462}
   m_Layer: 5
-  m_Name: New Game Button
+  m_Name: LevelOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472,8 +472,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 978610334}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: NewGame
+        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
+        m_MethodName: LevelOne
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1076,7 +1076,7 @@ GameObject:
   - component: {fileID: 1332354146}
   - component: {fileID: 1332354145}
   m_Layer: 5
-  m_Name: New Game Text
+  m_Name: LeveOneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Game
+  m_text: Level 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f9b6b60e8d9f384e8557ac967cd5268, type: 2}
   m_sharedMaterial: {fileID: -4751131066243813744, guid: 0f9b6b60e8d9f384e8557ac967cd5268, type: 2}
@@ -1289,7 +1289,7 @@ GameObject:
   - component: {fileID: 1406181874}
   - component: {fileID: 1406181877}
   m_Layer: 5
-  m_Name: Options Button
+  m_Name: LevelTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1359,7 +1359,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1406181875}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 978610334}
+        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
+        m_MethodName: LevelTwo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1406181875
 MonoBehaviour:
   m_ObjectHideFlags: 0
