@@ -11,6 +11,7 @@ public class GhostHome : GhostBehavior
         StopAllCoroutines();
     }
 
+    //Calls start of coroutine, useful for pausing execution
     private void OnDisable()
     {
         if (this.gameObject.activeSelf) 
