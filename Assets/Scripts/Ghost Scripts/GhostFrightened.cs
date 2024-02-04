@@ -35,15 +35,21 @@ public class GhostFrightened : GhostBehavior
     private void Eaten() 
     {
         this.eaten = true;
+        gameObject.GetComponent<Animator>().Play("dying");
         Vector3 position = this.ghost.home.insideTransform.position;
         position.z = this.ghost.transform.position.z;
         this.ghost.transform.position = position;
+        
+        Invoke(nameof(GhostDeath), 1.5f);
 
+        //this.body.enabled = false;
+        //this.blue.enabled = false;
+        //this.white.enabled = false;
+    }
+
+    private void GhostDeath()
+    {
         this.ghost.home.Enable(this.duration);
-
-        this.body.enabled = false;
-        this.blue.enabled = false;
-        this.white.enabled = false;
     }
 
     // Update is called once per frame

@@ -60,21 +60,21 @@ public class GameManager : MonoBehaviour
             pellet.gameObject.SetActive(true);
         }
         ResetState();
-        
     }
 
     private void ResetState() 
     {
+        this.pacMan.GetComponent<Collider2D>().enabled = true;
         ResetGhostMultiplier();
         //Each ghost is set as true when a new round is called
         for (int i = 0; i < this.ghosts.Length; i++)
         {
             this.ghosts[i].ResetState();
         }
-
         //Pac-Man is set as true when a new round is called
         pacMan.ResetState();
     }
+
 
     private void GameOver() 
     {
@@ -108,22 +108,24 @@ public class GameManager : MonoBehaviour
 
     public void PacManEaten() 
     {
-        pacAC.SetBool("PacDied", true);
-        // delay???
-        this.pacMan.gameObject.SetActive(false);
         SetLives(lives - 1);
-        
+        this.ghosts[0].gameObject.SetActive(false);
+        this.ghosts[1].gameObject.SetActive(false);
+        this.ghosts[2].gameObject.SetActive(false);
+        this.ghosts[3].gameObject.SetActive(false);
+        pacAC.SetBool("PacDied", true);
+        this.pacMan.GetComponent<Collider2D>().enabled = false;
+
         if (lives > 0)
         {
-            if (lives == 2)
+            if(lives == 2)
             {
-            life2.enabled = false;
+                life2.enabled = false;
             }
-            if (lives == 1)
-            {
+            else{
                 life1.enabled = false;
             }
-            Invoke(nameof(ResetState), 3.0f);
+            Invoke(nameof(ResetState), 1.5f);
         }
         else 
         {
@@ -190,7 +192,7 @@ public class GameManager : MonoBehaviour
     private void EndGame(int state)
     {
         menuButton.gameObject.SetActive(true);
-        Time. timeScale = 0;
+        Time.timeScale = 0;
         if (state <= 1)
         {
             gameOver.enabled = true;
