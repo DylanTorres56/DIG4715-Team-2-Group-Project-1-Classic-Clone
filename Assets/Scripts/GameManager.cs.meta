@@ -3,7 +3,19 @@ guid: 86f72f4cc1b60fc4ba0eb058e11544e6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - pacMan: {instanceID: 0}
+  - pellets: {instanceID: 0}
+  - bonusFruit1: {instanceID: 0}
+  - bonusFruit2: {instanceID: 0}
+  - scoreText: {instanceID: 0}
+  - gameOver: {instanceID: 0}
+  - gameWon: {instanceID: 0}
+  - life1: {instanceID: 0}
+  - life2: {instanceID: 0}
+  - menuButton: {instanceID: 0}
+  - pacAC: {instanceID: 0}
+  - pelletEatClip: {fileID: 8300000, guid: 3e5ac8148b48fb34192688dcd3b4ddd4, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

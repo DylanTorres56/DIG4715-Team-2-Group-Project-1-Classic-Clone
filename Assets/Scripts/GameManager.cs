@@ -30,6 +30,19 @@ public class GameManager : MonoBehaviour
     public Button menuButton;
     public Animator pacAC;
 
+    //matthew- adding most sfx in gamemanager cause it seems like most of the functions are all in here!!!!!
+
+    [SerializeField] private AudioClip[] pelletEatClips;
+    [SerializeField] private AudioClip powerPelletEatClip;
+    [SerializeField] private AudioClip ghostEatClip;
+    [SerializeField] private AudioClip bonusFruitEatClip;
+    [SerializeField] private AudioClip pacMaidDeathClip;
+    [SerializeField] private AudioClip pacMaidGameOverClip;
+    [SerializeField] private AudioClip roundStartClip;
+    [SerializeField] private AudioClip roundWinClip;
+    [SerializeField] private AudioClip menuMusicClip;
+    [SerializeField] private AudioClip levelMusicClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,10 +62,14 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         SetLives(3);
         NewRound();
+        SoundFXManager.Instance.PlayMusic(levelMusicClip, transform, 0.75f);
     }
 
     private void NewRound() 
     {
+        //matthew - include only if we are able to pause time at the beginning of rounds like in the og!!!!
+        //SoundFXManager.Instance.PlaySoundFXClip(roundStartClip, transform, 1f);
+
         //Pellets are turned back on when a new round is called
         gameOver.enabled = false;
         foreach (Transform pellet in this.pellets) 
@@ -83,7 +100,8 @@ public class GameManager : MonoBehaviour
         {
             this.ghosts[i].gameObject.SetActive(false);
         }
-
+        StopAllAudio();
+        SoundFXManager.Instance.PlaySoundFXClip(pacMaidGameOverClip, transform, 1f);
         //Pac-Man is set as false when the game is over
         this.pacMan.gameObject.SetActive(false);
         EndGame(1);
@@ -102,6 +120,7 @@ public class GameManager : MonoBehaviour
 
     public void GhostEaten(Ghost eatenGhost) 
     {
+        SoundFXManager.Instance.PlaySoundFXClip(ghostEatClip, transform, 1f);
         SetScore(score + eatenGhost.points * this.ghostMultiplier);
         this.ghostMultiplier++;
     }
@@ -118,7 +137,10 @@ public class GameManager : MonoBehaviour
 
         if (lives > 0)
         {
-            if(lives == 2)
+            StopAllAudio();
+            SoundFXManager.Instance.PlaySoundFXClip(pacMaidDeathClip, transform, 1f);
+            SoundFXManager.Instance.PlayMusic(levelMusicClip, transform, 1f);
+            if (lives == 2)
             {
                 life2.enabled = false;
             }
@@ -150,6 +172,9 @@ public class GameManager : MonoBehaviour
         pellet.gameObject.SetActive(false);
         SetScore(this.score + pellet.points);
 
+        //plays random pellet sounds
+        SoundFXManager.Instance.PlayRandomSoundFXClip(pelletEatClips, transform, 1f);
+
         if (!HasRemainingPellets())
         {
             this.pacMan.gameObject.SetActive(false);
@@ -157,6 +182,8 @@ public class GameManager : MonoBehaviour
                 ghosts[i].gameObject.SetActive(false);
             }
             EndGame(2);
+            StopAllAudio();
+            SoundFXManager.Instance.PlaySoundFXClip(roundWinClip, transform, 1f);
         }
     }
 
@@ -168,12 +195,14 @@ public class GameManager : MonoBehaviour
             this.ghosts[i].frightened.Enable(pellet.duration);
         }
         PelletEaten(pellet);
+        SoundFXManager.Instance.PlaySoundFXClip(powerPelletEatClip, transform, 1f);
         CancelInvoke();
         Invoke(nameof(ResetGhostMultiplier), pellet.duration);
     }
 
     public void BonusFruitEaten(BonusFruit bonusFruit) 
     {
+        SoundFXManager.Instance.PlaySoundFXClip(bonusFruitEatClip, transform, 1f);
         numOfBonusFruitEaten++;
         bonusFruit.gameObject.SetActive(false);
         SetScore(this.score + bonusFruit.fruitPoints);
@@ -207,5 +236,23 @@ public class GameManager : MonoBehaviour
     {
         this.ghostMultiplier = 1;
     }
-    
+
+
+    //Stop all sounds (for when game ends/wins and any sounds are playing)
+    //credit @dpanov76mail-ru on discussions.unity.com
+    private AudioSource[] allAudioSources;
+
+    void StopAllAudio()
+    {
+
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+                       
+            foreach (AudioSource audioS in allAudioSources)
+            {
+                audioS.Stop();
+            }
+       
+
+    }
+
 }
