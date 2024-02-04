@@ -16794,7 +16794,7 @@ MonoBehaviour:
   life1: {fileID: 1655974183}
   life2: {fileID: 155057697}
   menuButton: {fileID: 1524753168}
-  pacAC: {fileID: 0}
+  pacAC: {fileID: 2112426065}
   pelletEatClips:
   - {fileID: 8300000, guid: 3e5ac8148b48fb34192688dcd3b4ddd4, type: 3}
   - {fileID: 8300000, guid: a7f958699c428c84193df1fad53e26f1, type: 3}
@@ -17386,7 +17386,7 @@ Animator:
   m_GameObject: {fileID: 2112426064}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 27067c6163011fd4ea2aa4014184eb8a, type: 2}
+  m_Controller: {fileID: 9100000, guid: b52be2939ba0df24e85a2fa7070b3707, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
