@@ -5,11 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript: MonoBehaviour
 {
+    [SerializeField] private AudioClip menuMusicClip;
+    
     public void Awake()
     {
         Time.timeScale = 1;
+        
+
     }
-    
+
+    private void Start()
+    {
+        SoundFXManager.Instance.PlayMusic(menuMusicClip, transform, 0.5f);
+    }
     // Start is called before the first frame update
     public void LevelOne()
     {

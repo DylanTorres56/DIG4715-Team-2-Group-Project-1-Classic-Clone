@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioClip pacMaidGameOverClip;
     [SerializeField] private AudioClip roundStartClip;
     [SerializeField] private AudioClip roundWinClip;
-    [SerializeField] private AudioClip menuMusicClip;
     [SerializeField] private AudioClip levelMusicClip;
 
     // Start is called before the first frame update
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         SetLives(3);
         NewRound();
-        SoundFXManager.Instance.PlayMusic(levelMusicClip, transform, 0.75f);
+        SoundFXManager.Instance.PlayMusic(levelMusicClip, transform, 0.5f);
     }
 
     private void NewRound() 
@@ -101,7 +100,7 @@ public class GameManager : MonoBehaviour
             this.ghosts[i].gameObject.SetActive(false);
         }
         StopAllAudio();
-        SoundFXManager.Instance.PlaySoundFXClip(pacMaidGameOverClip, transform, 1f);
+        SoundFXManager.Instance.PlaySoundFXClip(pacMaidGameOverClip, transform, 0.5f);
         //Pac-Man is set as false when the game is over
         this.pacMan.gameObject.SetActive(false);
         EndGame(1);
@@ -120,7 +119,7 @@ public class GameManager : MonoBehaviour
 
     public void GhostEaten(Ghost eatenGhost) 
     {
-        SoundFXManager.Instance.PlaySoundFXClip(ghostEatClip, transform, 1f);
+        SoundFXManager.Instance.PlaySoundFXClip(ghostEatClip, transform, 0.4f);
         SetScore(score + eatenGhost.points * this.ghostMultiplier);
         this.ghostMultiplier++;
     }
@@ -138,8 +137,8 @@ public class GameManager : MonoBehaviour
         if (lives > 0)
         {
             StopAllAudio();
-            SoundFXManager.Instance.PlaySoundFXClip(pacMaidDeathClip, transform, 1f);
-            SoundFXManager.Instance.PlayMusic(levelMusicClip, transform, 1f);
+            SoundFXManager.Instance.PlaySoundFXClip(pacMaidDeathClip, transform, 0.5f);
+            SoundFXManager.Instance.PlayMusic(levelMusicClip, transform, 0.5f);
             if (lives == 2)
             {
                 life2.enabled = false;
@@ -173,7 +172,7 @@ public class GameManager : MonoBehaviour
         SetScore(this.score + pellet.points);
 
         //plays random pellet sounds
-        SoundFXManager.Instance.PlayRandomSoundFXClip(pelletEatClips, transform, 1f);
+        SoundFXManager.Instance.PlayRandomSoundFXClip(pelletEatClips, transform, 0.35f);
 
         if (!HasRemainingPellets())
         {
@@ -183,7 +182,7 @@ public class GameManager : MonoBehaviour
             }
             EndGame(2);
             StopAllAudio();
-            SoundFXManager.Instance.PlaySoundFXClip(roundWinClip, transform, 1f);
+            SoundFXManager.Instance.PlaySoundFXClip(roundWinClip, transform, 0.5f);
         }
     }
 
@@ -195,14 +194,14 @@ public class GameManager : MonoBehaviour
             this.ghosts[i].frightened.Enable(pellet.duration);
         }
         PelletEaten(pellet);
-        SoundFXManager.Instance.PlaySoundFXClip(powerPelletEatClip, transform, 1f);
+        SoundFXManager.Instance.PlaySoundFXClip(powerPelletEatClip, transform, 0.4f);
         CancelInvoke();
         Invoke(nameof(ResetGhostMultiplier), pellet.duration);
     }
 
     public void BonusFruitEaten(BonusFruit bonusFruit) 
     {
-        SoundFXManager.Instance.PlaySoundFXClip(bonusFruitEatClip, transform, 1f);
+        SoundFXManager.Instance.PlaySoundFXClip(bonusFruitEatClip, transform, 0.4f);
         numOfBonusFruitEaten++;
         bonusFruit.gameObject.SetActive(false);
         SetScore(this.score + bonusFruit.fruitPoints);
