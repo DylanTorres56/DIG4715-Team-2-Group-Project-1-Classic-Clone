@@ -2129,7 +2129,7 @@ Animator:
   m_GameObject: {fileID: 898978375}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 02b8139b4ac34fc438bb6ad6b708feca, type: 2}
+  m_Controller: {fileID: 9100000, guid: 42b6ae4a92f103240bd5f45f049845db, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2367,7 +2367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1194507029
 Transform:
   m_ObjectHideFlags: 0
@@ -9046,7 +9046,6 @@ MonoBehaviour:
   pacMaidGameOverClip: {fileID: 8300000, guid: 94042c941a8bbae42b9989c95fb28127, type: 3}
   roundStartClip: {fileID: 8300000, guid: 1234abf8866529341bbb5d7c4506d13e, type: 3}
   roundWinClip: {fileID: 8300000, guid: 1ab10a2c5d64a834d9116e9a5147c599, type: 3}
-  menuMusicClip: {fileID: 8300000, guid: ae38199d2a694774b86d7f3846986c73, type: 3}
   levelMusicClip: {fileID: 8300000, guid: de622a749fff60446b5b14e2a67040a5, type: 3}
 --- !u!4 &1251489988
 Transform:
@@ -9453,7 +9452,7 @@ Animator:
   m_GameObject: {fileID: 860621989}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: eb98f66f05b8cc14ba9968155f372292, type: 2}
+  m_Controller: {fileID: 9100000, guid: c9f16c510f11c3b4bb0b81fe1b9a2065, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -10097,7 +10096,7 @@ Animator:
   m_GameObject: {fileID: 1328160329}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4b025755af46e634f9ac1a75d0d251eb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7f95139fa8a39f448a6fa673d606b024, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -19579,7 +19578,7 @@ Animator:
   m_GameObject: {fileID: 2086737937}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 09a49b549e088d4499595af86ed2259c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 04479f4dc4bf53240b47555f481b0702, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
